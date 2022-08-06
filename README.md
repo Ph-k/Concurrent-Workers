@@ -22,7 +22,7 @@ The program can be executed from a cli as `./myprime -l lb -u ub -w NumofChildre
 - lb: is the first number that will be checked as a prime.  The start of the prime-checking range.
 - ub: is the last number that will be checked as a prime. The end of the prime-checking range
 
-- NumofChildren: is the number of child processes the myprime process and each primeManagger process will create.
+- NumofChildren: is the number of child processes the myprime process and each primeManager process will create.
 
 ## Brief implementation overview:
 
@@ -34,9 +34,11 @@ The program can be executed from a cli as `./myprime -l lb -u ub -w NumofChildre
 
 Apart from creating all the needed internal node processes, it also splits the prime-finding range according to the number of internal nodes so that each internal node is responsible for finding a unique sub range of primes. Finally, it collects the found primes *(and the time taken to find it)* from all his children using pipes.
 
-2 **Managers/Internal nodes:** The internal-node processes `primeManager` are responsible for creating  worker/leaf-node processes which together perform the calculations needed to find the primes in the primeManager's sub-range. They also collect the found primes and needed execution time from the leaf node processes using pipes, and compose them into a sorted list which is sent to the root process. When the child processes are done calculating the sorted list of results is send to the root node.
+2 **Managers/Internal nodes:** The internal-node processes `primeManager` are responsible for creating  worker/leaf-node processes which together perform the calculations needed to find the primes in the primeManager's sub-range. They also collect the found primes and needed execution time from the leaf node processes using pipes, and compose them into a sorted list. When the child processes are done calculating, the sorted list of results is send to the root node.
 
 3 **Workers/Leaf nodes:** As implied above, the leaf-node processes implement the algorithms which find the primes in a given sub range *(which is a sub range of the internal’s node sub range)* and send them via pipes to the managers/Internal nodes along with the time the calculation took. These processes can be any of `prime1` `prime2` `prime3` executables, which are selected using round dropping in the internal nodes.
+
+----
 
 The number of children processes the creator and each manager spawns is determined by the `NumofChildren` flag on `myprime`, the depth of the hierarchy is always two.
 For example, here is a schematic representation of the process hierarchy for 3 child processes:
@@ -44,13 +46,13 @@ For example, here is a schematic representation of the process hierarchy for 3 c
 ![Untitled Diagram (1)](https://user-images.githubusercontent.com/17359348/182947379-9757234d-0843-44a6-888b-f87fe6f3d068.png)
 
 
-Furthermore, each leaf-node process sends a USR1 signal to the parent *(who of course has the according signal handler)* to inform him that he has finished working 
+Furthermore, each leaf-node process sends a USR1 signal to the root process *(who of course has the according signal handler)* to inform him that he has finished working 
 
 ## Source code files overview:
 
 `myPrime.c`: Implements the already mentioned myPrime/Creator processes. The creation of the child processes is done using the fork() and execlp() system calls. The data from the children processes (prime numbers, execution time for leaf nodes etc) is collected through unique pipes for each child process.
 
-`primeManager.c`: Implements the internal-node processes. The program takes as command line arguments the: 1. range of numbers which will be split and searched for primes from the leaf-node processes, 2. number of child processes, 3. the file descriptor of the pipe used to communicate with the root process, 4. his child number, used as a serial number to determine which child of the root process he is, 5. the root/myPrime process id to passed to the leaf nodes. Also, as mentioned, it creates the leaf-nodes, and composes the results of the child process in a sorted list which, when done, is forwarded to the root process.
+`primeManager.c`: Implements the internal-node processes. The program takes as command line arguments the: *1.* range of numbers which will be split and searched for primes from the leaf-node processes, *2.* number of child processes, *3.* the file descriptor of the pipe used to communicate with the root process, *4.* his child number, used as a serial number to determine which child of the root process he is, *5.* the root/myPrime process id to be passed to the leaf nodes. Also, as mentioned, it creates the leaf-nodes, and composes the results of the child process in a sorted list which, when done, is forwarded to the root process.
 
 `prime1.c` & `prime2.c` & `prime3.c`: Each of these programs implement a prime funding algorithm from faster to slower, from trivial to more sophisticated. The two first algorithms were given from the professor alex delis, and the third is a prime finding implementation of my own.
 
