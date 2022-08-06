@@ -67,7 +67,10 @@ Regarding everything else, the programs work the same way. The all take the same
 All the output is printed from the root/myPrime in the following form:
 
     OUTPUT (per invocation of program):
-	Primes in [lb,ub] are: result1 time1 result2 time2 result3 time3 result4 time4 ... resulti  timei...
+	Primes in [lb,ub] are:
+	result1 time1 result2 time2 result3 time3 result4 time4 ... resulti  timei...
+	Found *n* prime numbers in total
+	
 	Min Time for Workers : mintime msecs
 	Max Time for Workers : maxtime msecs
 	Num of USR1 Received : numUSR1rec-by-root/number-of-workers-activated
