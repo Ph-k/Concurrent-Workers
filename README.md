@@ -8,7 +8,7 @@ A hierarchy of processes that communicate in order to find prime numbers in C
 
 ## Summary:
 
-This project focuses on creating and coordinating processes utilizing the appropriate linux/unix system calls *(fork(), exec(), wait(), kill(), mkfifo(), pipe() etc)*. By using these system calls, it creates a hierarchy of processes which is used to calculate prime numbers using different prime-finding algorithms implemented in different executables. The processes hierarchy can also be used as a basis for any kind of concurrent calculation that can be split between different programs.
+This project focuses on creating and coordinating a dynamic number of processes utilizing the appropriate linux/unix system calls *(fork(), exec(), wait(), kill(), mkfifo(), pipe() etc)*. By using these system calls, it creates a hierarchy of processes which is used to calculate prime numbers using different prime-finding algorithms implemented in different executables. The processes hierarchy can also be used as a basis for any kind of concurrent calculation that can be split between different programs.
 
 ## Compilation:
 
