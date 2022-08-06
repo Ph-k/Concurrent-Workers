@@ -58,7 +58,7 @@ Furthermore, each leaf-node process sends a USR1 signal to the root process *(wh
 
 Regarding everything else, the programs work the same way. The all take the same arguments (prime-finding range, pipe file descriptor, process id of root/myPrime process to send the USR1 signal), and as they find the prime numbers they send them to their respective parent using their unique pipe.
 
-`list.c`/`list.h’: Contains the implementation of a C linked list, customized to fit the needs of maintaining and inserting in sorted order prime numbers and the time needed to find them.
+`list.c`/`list.c`: Contains the implementation of a C linked list, customized to fit the needs of maintaining and inserting in sorted order prime numbers and the time needed to find them.
 
 `utilities.c` & `utilities.h`: Some useful functions that help maintaining a clean code base by providing a level of abstraction, and preventing code duplication. More in the source code comments.
 
