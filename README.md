@@ -8,24 +8,24 @@ Both projects deal with multiple concurrent process that must be coordinated in 
 *These projects were the programming projects 2 & 3 of the Operating System course at DIT – UoA. Credits to the professor of the course at the time,  [Alex Delis](https://www.alexdelis.eu/).*
 
 # Table of Contents  
-[Concurrent-Primes](#)  
-- [Summary](#)
-- [Compilation](#) 
-- [Usage](#) 
-- [Brief implementation overview](#) 
--- [Process hierarchy](#) 
-- [Source code files overview](#) 
-- [ Output format](#)
- - [Useful notes](#) 
+[Concurrent-Primes](#concurrent-primes)  
+- [Summary](#summary)
+- [Compilation](#compilation) 
+- [Usage](#usage) 
+- [Brief implementation overview](#brief-implementation-overview) 
+-- [Process hierarchy](#process-hierarchy) 
+- [Source code files overview](#source-code-files-overview) 
+- [Output format](#output-format)
+- [Useful notes](#useful-notes) 
 
-[Salad-Making](#)  
-- [Summary](#) 
-- [Compilation](#) 
-- [Usage](#) 
-- [Brief implementation overview](#) 
-- [Source code files overview](#) 
-- [Output format](#) 
-- [Useful notes](#) 
+[Salad-Making](#salad-making)  
+- [Summary](#summary-1) 
+- [Compilation](#compilation-1) 
+- [Usage](#usage-1) 
+- [Brief implementation overview](#brief-implementation-overview-1) 
+- [Source code files overview](#source-code-files-overview-1) 
+- [Output format](#output-format-1) 
+- [Useful notes](#useful-notes) 
 
 # Concurrent-Primes
 
@@ -164,7 +164,9 @@ Notes:
 - The chef only has 2 hands thus (*even though he has all the ingredients at his baskets*) he takes only two  ingredients at a time which are supplied to only one saladmaker, *who is then informed*.
 
 The above schema can be portrayed by the following picture:
-[pic]
+![image](https://user-images.githubusercontent.com/17359348/183515842-16dacd56-c0fa-4de2-bbb0-90bb5f6e1297.png)
+
+*Credits to the profesor alex delis for the picture* 
 
 The already mentioned shared memory segment, *which can identify as the work bench*, consists of the following:
 
