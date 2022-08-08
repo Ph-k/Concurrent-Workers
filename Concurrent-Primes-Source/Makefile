@@ -1,4 +1,4 @@
-# Code from https://github.com/Ph-k/Concurrent-Primes. Philippos Koumparos (github.com/Ph-k)
+# Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)
 
 CC = gcc
 mainObjects = myPrime.o 

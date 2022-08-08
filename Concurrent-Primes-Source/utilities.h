@@ -1,6 +1,6 @@
 #pragma once
 
-/* Code from https://github.com/Ph-k/Concurrent-Primes. Philippos Koumparos (github.com/Ph-k)*/
+/* Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)*/
 
 struct pipeMessage{ //This structure represents the data that are passed through a pipe
 	int number; //An integer (regarding the, type this can be a prime number or the id of a W process node)

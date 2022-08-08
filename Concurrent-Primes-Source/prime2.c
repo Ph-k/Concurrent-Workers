@@ -6,7 +6,7 @@
 #include <signal.h>
 #include "utilities.h"
 
-/* Code from https://github.com/Ph-k/Concurrent-Primes. Philippos Koumparos (github.com/Ph-k)*/
+/* Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)*/
 
 #define YES 1
 #define NO  0

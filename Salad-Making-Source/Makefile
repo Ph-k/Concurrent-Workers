@@ -1,3 +1,5 @@
+# Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)
+
 CC = gcc
 cflags = -Wall -g -pthread
 

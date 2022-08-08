@@ -1,3 +1,4 @@
+/* Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)*/
 #include <stdio.h>
 #include <sys/shm.h>
 #include "MySharedMemLib.h"

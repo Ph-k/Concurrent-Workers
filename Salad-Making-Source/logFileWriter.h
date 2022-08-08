@@ -1,4 +1,7 @@
 #pragma once
+
+/* Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)*/
+
 #include <time.h>
 
 typedef struct list list; //Forward declaration

@@ -1,6 +1,8 @@
 #pragma once
 #include <time.h>
 
+/* Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)*/
+
 #define START 1
 #define END 0
 

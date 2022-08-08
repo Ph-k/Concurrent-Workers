@@ -2,7 +2,7 @@
 #include "utilities.h"
 #include "list.h"
 
-/* Code from https://github.com/Ph-k/Concurrent-Primes. Philippos Koumparos (github.com/Ph-k)*/
+/* Code from https://github.com/Ph-k/Concurrent-Workers. Philippos Koumparos (github.com/Ph-k)*/
 
 list* initialize(){//The initialization creates an empty lits
 	list* listS = malloc(sizeof(list));
