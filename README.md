@@ -1,3 +1,5 @@
+# Concurrent-Workers
+
 In this repository you will find two projects, **[Concurrent-Primes](#Concurrent-Primes)** and **[Salad-Making](#Salad-Makingr)**.
 Both projects deal with multiple concurrent process that must be coordinated in order to progress towards a common goal. Briefly:
 - The goal of Concurrent-Primes is to calculate prime numbers, while communicating via pipes. 
