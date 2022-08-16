@@ -25,7 +25,7 @@ Both projects deal with multiple concurrent process that must be coordinated in 
 - [Brief implementation overview](#brief-implementation-overview-1) 
 - [Source code files overview](#source-code-files-overview-1) 
 - [Output format](#output-format-1) 
-- [Useful notes](#useful-notes) 
+- [Useful notes](#useful-notes-1)
 
 # Concurrent-Primes
 
@@ -57,7 +57,7 @@ The program can be executed from a cli as `./myprime -l lb -u ub -w NumofChildre
 
 1 **Creator/Root:** The basic executable `myprime` is the root of the process’s hierarchy and father of all internal node processes, which in turn create the leaf node processes.
 
-Apart from creating all the needed internal node processes, it also splits the prime-finding range according to the number of internal nodes so that each internal node is responsible for finding a unique sub range of primes. Finally, it collects the found primes *(and the time taken to find it)* from all his children using pipes.
+Apart from creating all the needed internal node processes, it also splits the prime-finding range according to the number of internal nodes so that each internal node is responsible for finding a unique sub range of primes. Finally, it collects the found primes *(and the time taken to find them)* from all his children using pipes.
 
 2 **Managers/Internal nodes:** The internal-node processes `primeManager` are responsible for creating  worker/leaf-node processes which together perform the calculations needed to find the primes in the primeManager's sub-range. They also collect the found primes and needed execution time from the leaf node processes using pipes, and compose them into a sorted list. When the child processes are done calculating, the sorted list of results is send to the root node.
 
@@ -71,7 +71,7 @@ For example, here is a schematic representation of the process hierarchy for 3 c
 ![Untitled Diagram (1)](https://user-images.githubusercontent.com/17359348/182947379-9757234d-0843-44a6-888b-f87fe6f3d068.png)
 
 
-Furthermore, each leaf-node process sends a USR1 signal to the root process *(who of course has the according signal handler)* to inform him that he has finished working 
+Furthermore, each leaf-node process sends a USR1 signal to the root process *(who of course has the according signal handler)* to inform him that he has finished working.
 
 ## Source code files overview:
 
@@ -81,7 +81,7 @@ Furthermore, each leaf-node process sends a USR1 signal to the root process *(wh
 
 `prime1.c` & `prime2.c` & `prime3.c`: Each of these programs implement a prime funding algorithm from faster to slower, from trivial to more sophisticated. The two first algorithms were given from the professor alex delis, and the third is a prime finding implementation of my own.
 
-Regarding everything else, the programs work the same way. The all take the same arguments (prime-finding range, pipe file descriptor, process id of root/myPrime process to send the USR1 signal), and as they find the prime numbers they send them to their respective parent using their unique pipe.
+Regarding everything else, the programs work the same way. They all take the same arguments (prime-finding range, pipe file descriptor, process id of root/myPrime process to send the USR1 signal), and as they find the prime numbers they send them to their respective parent using their unique pipe.
 
 `list.c`/`list.c`: Contains the implementation of a C linked list, customized to fit the needs of maintaining and inserting in sorted order prime numbers and the time needed to find them.
 
@@ -122,7 +122,7 @@ A hierarchy of processes that communicate in order to find prime numbers in C
 
 The project uses distinct implemented programs which when executed, simulate the operation of making a salad on behalf of a “restaurant”. There are two types of processes:
 
-1. Chef: this process is responsible for creating the shared memory segment and manage the creation of the salads from the Salad-Makers.
+1. Chef: this process is responsible for creating the shared memory *("virtual" work bench)* segment and manage the creation of the salads from the Salad-Makers.
 
 2. Salad-Makers: They wait using semaphores until the ingredients they need are available, in order to procced with the creation of the salad. *In our case we use 3 distinct salad makers*
 
@@ -136,9 +136,9 @@ To run the project, you must execute **one** chef process and **three** salad ma
 
 The chef program can be executed from a cli as `./chef -n numOfSlds -m mantime` where:
 
-- numOfSlds in the total number of salads that need to be prepared.
+- numOfSlds is the total number of salads that need to be prepared.
 
-- mantime is the time interval that the chef takes to rest between consecutive places of ingredients on the table.
+- mantime is the time interval that the chef rests between consecutive places of ingredients on the table.
 
 Note: the chef will print the shared memory segment ID which you should pass to the salad makers.
 
@@ -170,10 +170,10 @@ The above schema can be portrayed by the following picture:
 
 The already mentioned shared memory segment, *which can identify as the work bench*, consists of the following:
 
-- 3 semaphores, one for each saladmaker. These semaphores depict the transfer of ingredients form the chef to the saladmakers, which in conjunction with the fact that each saladmaker is in need for one unique ingredient, gives us the luxury to only use 3 semaphores for each saladmaker and ingredient *instead of 3 ingredient semaphores per saladmaker, which in our case would be a waste*.
+- 3 semaphores, one for each saladmaker. These semaphores depict the transfer of ingredients form the chef to the saladmakers, which in conjunction with the fact that each saladmaker is in need for a unique pair of ingredients, gives us the luxury to only use 3 semaphores for each saladmaker and ingredient *instead of 3 ingredient semaphores per saladmaker, which in our case would be a waste*.
 - One semaphore that is used from all saladmakers, to inform the chef that there are saladmakers waiting for ingredients.
 - One semaphore which is used to protect the critical sections of writing and reading *(the two)* process-shared variables.
-- Two process-shared variables, one for the remaining number of salads that must be prepared, and one used as flag used from the saladmakers when they are done working.
+- Two process-shared variables, one for the remaining number of salads that must be prepared, and one used as a flag from the saladmakers when they are done working.
 
 At last. While all the programs are executed, they write some diagnostic messages on some log files. The format of which you will find in the end of the documentation.
 
@@ -227,4 +227,4 @@ Log files format:
 
 ### Useful notes:
 - `make clean` deletes all the executables and the object files. And `make dclean` removes all the executables and the object files, along with the log files.
-- In the stressful environment of the kitchen, the salad makers might request from chef more more ingredients than needed salads, since we have 3 saladmakers, In the worst case we might have two more salads than the requested number, which we assume are disposed.
+- In the stressful environment of the kitchen, the salad makers might request from chef more ingredients than needed salads, since we have 3 saladmakers, In the worst case we might have two more salads than the requested number, which we assume are disposed.
